@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 172" role="img" aria-label="Tachbonest Classic Ventures logo">
+  <g fill="#D6453D">
+    <path d="M38 62C30 66 34 92 42 118C47 133 55 150 60 158C60 130 52 96 46 74C44 64 41 60 38 62Z"/>
+    <path transform="translate(120 0) scale(-1 1)" d="M38 62C30 66 34 92 42 118C47 133 55 150 60 158C60 130 52 96 46 74C44 64 41 60 38 62Z"/>
+  </g>
+  <g fill="#3D4657">
+    <path d="M14 88C6 98 14 118 28 138C40 154 54 164 60 170C56 146 46 118 34 100C28 90 20 82 14 88Z"/>
+    <path transform="translate(120 0) scale(-1 1)" d="M14 88C6 98 14 118 28 138C40 154 54 164 60 170C56 146 46 118 34 100C28 90 20 82 14 88Z"/>
+    <path d="M32 8H88V24H81C81 18 79 16.5 72 16.5H66V76C66 80 68 81 73 82V84H47V82C52 81 54 80 54 76V16.5H48C41 16.5 39 18 39 24H32Z"/>
+  </g>
+</svg>

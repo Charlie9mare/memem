@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact Us | Tachbonest Classic Ventures</title>
+<meta name="description" content="Contact Tachbonest Classic Ventures in Ladipo, Lagos. Call, WhatsApp or send an enquiry about blinds or food items.">
+<meta name="theme-color" content="#3a4659">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="contact">
+<div id="site-header"></div>
+<main>
+<section class="page-hero"><div class="wrap"><h1>Contact us</h1><p>Ask about blinds, food items or an existing order. We reply by your preferred method.</p></div></section>
+<section class="section" style="padding-top:30px"><div class="wrap about-grid">
+  <form class="card" id="eForm" novalidate><h2>Send an enquiry</h2>
+    <div class="grid2"><div class="field" data-f="name"><label for="eName">Full name</label><input id="eName" autocomplete="name"><span class="err">Enter your name.</span></div>
+    <div class="field" data-f="phone"><label for="ePhone">Phone / WhatsApp number</label><input id="ePhone" type="tel" autocomplete="tel"><span class="err">Enter a phone number we can reach.</span></div></div>
+    <div class="grid2"><div class="field"><label for="eMail">Email (optional)</label><input id="eMail" type="email"></div>
+    <div class="field"><label for="eSub">Topic</label><select id="eSub"><option>Blinds quotation</option><option>Food items</option><option>Existing order</option><option>Other</option></select></div></div>
+    <div class="field" data-f="msg"><label for="eMsg">Message</label><textarea id="eMsg"></textarea><span class="err">Write your message.</span></div>
+    <div class="field" id="eErr" style="display:none"><span class="err" style="display:block" id="eErrTxt"></span></div>
+    <button class="btn red lg" id="eBtn" type="submit">Send enquiry</button>
+  </form>
+  <aside><div class="card"><h2>Visit or call</h2><ul class="contact-list" id="aboutContact" style="margin-top:12px"></ul></div></aside>
+</div></section>
+<dialog id="done"><div class="dlg-in" style="text-align:center"><div class="okmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h2>Enquiry received</h2><div class="refbox" id="refNo"></div><div class="acts" style="justify-content:center"><a class="btn wa" id="waBtn" target="_blank" rel="noopener">Also send on WhatsApp</a><a class="btn ghost" href="index.html">Back to home</a></div></div></dialog>
+</main>
+<div id="site-footer"></div>
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>T.ready.then(()=>{const B=TACH_CONFIG.business,I=T.ICON,$=T.$;
+$('#aboutContact').innerHTML=`<li>${I.pin}<span>${T.esc(B.address)}</span></li>`+B.phones.map(p=>`<li>${I.phone}<a href="tel:${p}">${p}</a></li>`).join('')+`<li>${I.wa}<a href="${T.wa('Hello Tachbonest, I need some help.')}" target="_blank" rel="noopener">Chat on WhatsApp</a></li>`+(B.email?`<li>${I.mail}<a href="mailto:${B.email}">${T.esc(B.email)}</a></li>`:'');
+$('#eForm').onsubmit=async e=>{e.preventDefault();$('#eErr').style.display='none';T.$$('#eForm .field[data-f]').forEach(f=>f.classList.remove('bad'));
+const name=$('#eName').value.trim(),phone=$('#ePhone').value.trim(),msg=$('#eMsg').value.trim();let bad=false;
+if(!name){$('[data-f=name]').classList.add('bad');bad=true}if(phone.replace(/\D/g,'').length<10){$('[data-f=phone]').classList.add('bad');bad=true}if(!msg){$('[data-f=msg]').classList.add('bad');bad=true}if(bad)return;
+const id=T.uid('E'),o={id,ref:'EN-'+id.slice(1),type:'enquiry',status:'Pending',createdAt:new Date().toISOString(),customer:{name,phone,email:$('#eMail').value.trim(),address:''},details:{subject:$('#eSub').value},images:[],notes:msg},b=$('#eBtn');b.disabled=true;b.textContent='Sending…';
+try{await Store.addOrder(o)}catch(x){console.error(x);b.disabled=false;b.textContent='Send enquiry';$('#eErr').style.display='block';$('#eErrTxt').textContent='We could not send your enquiry. Please use WhatsApp or call us.';return}
+$('#refNo').textContent=o.ref;$('#waBtn').href=T.wa(`Hello Tachbonest, I sent an enquiry (Ref ${o.ref}).\nName: ${name}\nTopic: ${o.details.subject}\n${msg}`);$('#done').showModal();$('#eForm').reset();b.disabled=false;b.textContent='Send enquiry';};}));
+</script>
+</body>
+</html>

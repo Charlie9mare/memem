@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order Blinds | Tachbonest Classic Ventures</title>
+<meta name="description" content="Order vertical or Venetian blinds. Enter your window sizes and upload a photo of your window to get a quotation.">
+<meta name="theme-color" content="#3a4659">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="blinds">
+<div id="loader" aria-hidden="true">
+  <div class="ld-slats"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13"></i></div>
+  <div class="ld-center">
+    <img class="ld-logo" src="assets/logo.svg" alt="">
+    <div class="ld-name">TACHBONEST CLASSIC<em>Ventures</em></div>
+    <div class="ld-bar"><span></span></div>
+    <div class="ld-note">Opening the blinds…</div>
+  </div>
+</div>
+<div id="site-header"></div>
+
+<main>
+<section class="page-hero"><div class="wrap"><h1>Order your blinds</h1><p>Tell us what you want, add your window sizes, and upload a photo of each window. We reply with a quotation.</p></div></section>
+<section class="section" style="padding-top:30px"><div class="wrap">
+<form id="bForm" class="split" novalidate>
+  <div>
+    <div class="card"><h2>1. Your details</h2><p class="sub">So we know who to send the quotation to.</p>
+      <div class="grid2">
+        <div class="field" data-f="name"><label for="cName">Full name</label><input id="cName" autocomplete="name"><span class="err">Enter your name.</span></div>
+        <div class="field" data-f="phone"><label for="cPhone">Phone / WhatsApp number</label><input id="cPhone" type="tel" autocomplete="tel" placeholder="080…"><span class="err">Enter a phone number we can reach.</span></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label for="cEmail">Email (optional)</label><input id="cEmail" type="email" autocomplete="email"></div>
+        <div class="field"><label for="cAddr">Address where blinds will be fitted</label><input id="cAddr" autocomplete="street-address" placeholder="Street, area, Lagos"></div>
+      </div>
+    </div>
+
+    <div class="card"><h2>2. Type and colour</h2><p class="sub">Not sure? Choose “Advise me” and we will guide you.</p>
+      <div class="opts" role="radiogroup" aria-label="Blind type">
+        <label class="opt"><input type="radio" name="btype" value="Vertical" checked><span>Vertical<small>Upright louvres</small></span></label>
+        <label class="opt"><input type="radio" name="btype" value="Venetian"><span>Venetian<small>Horizontal slats</small></span></label>
+        <label class="opt"><input type="radio" name="btype" value="Not sure"><span>Advise me<small>We will help</small></span></label>
+      </div>
+      <div style="margin-top:16px"><div class="lbl">Rail / slat colour</div><div class="swatches" id="railSw"></div><div class="selname" id="railName"></div></div>
+      <div><div class="lbl">Tape colour</div><div class="swatches" id="tapeSw"></div><div class="selname" id="tapeName"></div></div>
+      <div class="field"><label for="otherColor">Other colour or fabric you have in mind (optional)</label><input id="otherColor" placeholder="e.g. same grey as my sofa"></div>
+    </div>
+
+    <div class="card"><h2>3. Window sizes</h2><p class="sub">One row per window or group of identical windows. This follows the same layout as our quotation form.</p>
+      <div class="field" style="max-width:220px"><label for="unit">Measured in</label><select id="unit"><option>cm</option><option>inches</option><option>feet</option><option>metres</option></select></div>
+      <div class="rows-head"><span>Fitting</span><span>Room / place</span><span>Qty</span><span>Width</span><span>Drop (height)</span><span></span></div>
+      <div id="rows"></div>
+      <button type="button" class="btn ghost sm" id="addRow">+ Add another window</button>
+      <ul class="tips"><li>Measure the width and the drop at the top, middle and bottom, and use the smallest figure for an inside fit.</li><li>“Inside” means the blind sits inside the window frame. “Outside” means it hangs on the wall or ceiling over the frame.</li></ul>
+    </div>
+
+    <div class="card"><h2>4. Photos of your windows</h2><p class="sub">A clear photo of each window helps us quote correctly. Up to 4 photos.</p>
+      <label class="drop" id="drop" for="files">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/><path d="M12 15V4m0 0L7.5 8.5M12 4l4.5 4.5"/></svg><b>Tap to choose photos, or drop them here</b><span>JPG or PNG. Large photos are shrunk automatically.</span>
+      </label>
+      <input type="file" id="files" accept="image/*" multiple class="sr">
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+
+    <div class="card"><h2>5. Anything else?</h2>
+      <div class="field"><label for="notes">Notes (optional)</label><textarea id="notes" placeholder="Preferred date, access to the building, special requests…"></textarea></div>
+      <div class="field" id="formErr" style="display:none"><span class="err" style="display:block" id="formErrTxt"></span></div>
+      <button class="btn red lg" type="submit" id="bSubmit">Send my order request</button>
+    </div>
+  </div>
+
+  <aside class="sticky">
+    <div class="card sum"><h2>Your request</h2><p class="sub">Updates as you fill the form.</p>
+      <dl><dt>Blind type</dt><dd id="sType">Vertical</dd><dt>Rail / slat</dt><dd id="sRail">Not chosen</dd><dt>Tape</dt><dd id="sTape">Not chosen</dd><dt>Windows</dt><dd id="sWin">0</dd><dt>Photos</dt><dd id="sImg">0</dd></dl>
+      <div class="note" style="margin-top:16px">This is a request for a quotation. We confirm the price with you before any work. Payment is made before service.</div>
+    </div>
+  </aside>
+</form>
+</div></section>
+
+<dialog id="done"><div class="dlg-in" style="text-align:center">
+  <div class="okmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h2>Request received</h2>
+  <p style="color:var(--muted)">Thank you. Keep your reference number and quote it when you contact us.</p>
+  <div class="refbox" id="refNo"></div>
+  <p style="font-size:.9rem;color:var(--muted)">For the fastest reply, send the details on WhatsApp and attach your window photos there.</p>
+  <div class="acts" style="justify-content:center"><a class="btn wa" id="waBtn" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn ghost" href="index.html">Back to home</a></div>
+</div></dialog>
+</main>
+<div id="site-footer"></div>
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script src="js/images.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/blinds.js"></script>
+</body>
+</html>

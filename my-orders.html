@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Orders | Tachbonest Classic Ventures</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#3a4659">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>.trk{list-style:none;padding:0;margin:16px 0}.trk li{padding:10px 0 10px 34px;position:relative;color:var(--muted)}.trk li::before{content:"";position:absolute;left:6px;top:14px;width:14px;height:14px;border-radius:50%;border:2px solid var(--line);background:#fff}.trk li.d{color:var(--slate);font-weight:600}.trk li.d::before{background:var(--red);border-color:var(--red)}</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="orders">
+<div id="site-header"></div>
+<main>
+<section class="page-hero"><div class="wrap"><h1>My orders</h1><p>Enter the reference number you received to see the status of your order.</p></div></section>
+<section class="section" style="padding-top:30px"><div class="wrap" style="max-width:640px">
+  <form class="card" id="tForm"><div class="field"><label for="tRef">Reference number</label><input id="tRef" placeholder="e.g. FD-1AB2CD"></div><button class="btn red" type="submit">Check status</button>
+    <div id="recent" style="margin-top:16px"></div></form>
+  <div class="card" id="tOut" hidden></div>
+</div></section>
+</main>
+<div id="site-footer"></div>
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{const $=T.$,STEPS=['Pending','Confirmed','Processing','Dispatched','Delivered'];
+let mine=[];try{mine=JSON.parse(localStorage.getItem('tach_myrefs'))||[]}catch(e){}
+$('#recent').innerHTML=mine.length?'<div class="lbl">Orders sent from this device</div><div class="chips">'+mine.map(m=>`<button type="button" class="chip" data-r="${T.esc(m.ref)}">${T.esc(m.ref)}</button>`).join('')+'</div>':'';
+async function check(ref){const out=$('#tOut');out.hidden=false;out.innerHTML='<p>Checking…</p>';let r=null;try{r=await Store.track(ref)}catch(e){out.innerHTML='<p>We could not check right now. Please try again, or contact us on WhatsApp.</p>';return}
+if(!r){out.innerHTML='<h2>Not found</h2><p>We could not find that reference. Check the number and try again.</p>';return}
+const s=r.status;let body;
+if(s==='Rejected'||s==='Cancelled')body=`<p><b>This order is ${s.toLowerCase()}.</b> Contact us if you have questions.</p>`;
+else{const at=s==='Quoted'?0.5:STEPS.indexOf(s);body='<ol class="trk">'+STEPS.map((x,i)=>`<li class="${i<=at?'d':''}">${x}${i===0&&s==='Quoted'?' (quotation sent)':''}</li>`).join('')+'</ol>'}
+out.innerHTML=`<h2>${T.esc(r.ref)}</h2><p class="sub">Status: <b>${T.esc(s)}</b></p>${body}<a class="btn wa" target="_blank" rel="noopener" href="${T.wa('Hello Tachbonest, I am asking about order '+r.ref+'.')}">Ask on WhatsApp</a>`}
+$('#tForm').onsubmit=e=>{e.preventDefault();const v=$('#tRef').value.trim();if(v)check(v)};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-r]');if(b){$('#tRef').value=b.dataset.r;check(b.dataset.r)}});});
+</script>
+</body>
+</html>

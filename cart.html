@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Cart | Tachbonest Classic Ventures</title>
+<meta name="description" content="Review your food items and blind quotation requests, then send your order to Tachbonest Classic Ventures.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#3a4659">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="cart">
+<div id="site-header"></div>
+<main>
+<section class="page-hero"><div class="wrap"><h1>My cart</h1><p>Food items and blind quotation requests in one order. No payment is taken here; we confirm prices with you first.</p></div></section>
+<section class="section" style="padding-top:30px"><div class="wrap">
+  <div class="card" id="cartEmpty" hidden><h2>Your cart is empty</h2><p class="sub">Add food items or blinds, or just send your own list, pictures or files below.</p><div class="acts"><a class="btn red" href="order-food.html">Food items</a><a class="btn ghost" href="index.html#shop">Browse blinds</a></div></div>
+  <form class="split" id="cForm" novalidate>
+    <div id="cartMain">
+      <div class="card" id="foodBox"><h2>Food items</h2><p class="sub">Prices shown are the current listed prices. Items without a price are confirmed by us.</p><div id="foodRows"></div></div>
+      <div class="card" id="blindBox"><h2>Window blinds</h2><p class="sub">Enter each window size. Blind prices come from a written quotation.</p>
+        <div class="field" style="max-width:220px"><label for="unitSel">Measured in</label><select id="unitSel"><option>cm</option><option>inches</option><option>feet</option><option>metres</option></select></div><div id="blindRows"></div></div>
+      <div class="card" id="photoBox"><span id="own"></span><h2>Your own list, pictures and files</h2><p class="sub">Have a list written down, or a photo of what you want? Add it here. All optional.</p>
+        <div class="field"><label for="ownList">Type or paste your own list</label><textarea id="ownList" placeholder="e.g. 2 bags of rice, 1 gallon of palm oil…"></textarea></div>
+        <div class="field"><label for="files">Pictures (window photos, product photos, a photo of a handwritten list)</label><input type="file" id="files" accept="image/*" multiple><div class="thumbs" id="thumbs"></div></div>
+        <div class="field"><label for="docs">Files (PDF, Word, Excel, text)</label><input type="file" id="docs" accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt" multiple><div id="fileList"></div><small style="color:var(--muted)">Up to 3 files, 400 KB each. For bigger files, send them on WhatsApp.</small></div></div>
+      <div class="card"><h2>Your details</h2>
+        <div class="grid2"><div class="field" data-f="name"><label for="kName">Full name</label><input id="kName" autocomplete="name"><span class="err">Enter your name.</span></div>
+        <div class="field" data-f="phone"><label for="kPhone">Phone / WhatsApp number</label><input id="kPhone" type="tel" autocomplete="tel"><span class="err">Enter a phone number we can reach.</span></div></div>
+        <div class="grid2"><div class="field"><label for="kEmail">Email (optional)</label><input id="kEmail" type="email" autocomplete="email"></div>
+        <div class="field"><label for="kPref">Preferred contact method</label><select id="kPref"><option>WhatsApp</option><option>Phone call</option><option>SMS</option><option>Email</option></select></div></div>
+        <div class="field"><label for="dOpts">Delivery option</label><select id="dOpts"></select></div>
+        <div class="field" data-f="addr"><label for="kAddr">Address <span id="addrReq" hidden>(required for delivery)</span></label><input id="kAddr" autocomplete="street-address"><span class="err">Enter the address for delivery.</span></div>
+        <div class="field"><label for="kNotes">Special instructions</label><textarea id="kNotes"></textarea></div>
+      </div>
+    </div>
+    <aside class="sticky"><div class="card sum"><h2>Order summary</h2>
+      <dl><dt>Subtotal (priced items)</dt><dd id="tSub">—</dd><dt>Delivery</dt><dd id="tFee">—</dd><dt>Total</dt><dd id="tTot">—</dd></dl>
+      <div class="field" id="cErr" style="display:none"><span class="err" style="display:block" id="cErrTxt"></span></div>
+      <button class="btn red lg" style="width:100%;margin-top:14px" type="submit">Review my order</button>
+      <div class="note" style="margin-top:14px">Prices can change without notice. Payment is made before service.</div></div></aside>
+  </form>
+</div></section>
+<dialog id="rev"><button class="dlg-x" id="revX" aria-label="Close">×</button><div class="dlg-in"><h2>Review your order</h2><div id="revBody"></div><div class="acts"><button class="btn red" id="revGo" type="button">Confirm and send</button></div></div></dialog>
+<dialog id="done"><div class="dlg-in" style="text-align:center"><div class="okmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h2>Order received</h2><p style="color:var(--muted)">Keep your reference number(s). We will contact you to confirm prices.</p><div id="refList"></div><div class="acts" style="justify-content:center"><a class="btn wa" id="waBtn" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn ghost" href="index.html">Back to home</a></div></div></dialog>
+</main>
+<div id="site-footer"></div>
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script src="js/images.js"></script>
+<script src="js/cart.js"></script>
+</body>
+</html>

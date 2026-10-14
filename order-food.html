@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Food List | Tachbonest Classic Ventures</title>
+<meta name="description" content="Make your food list and send it to Tachbonest Classic Ventures. We confirm prices and buy the items for you.">
+<meta name="theme-color" content="#3a4659">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="food">
+<div id="loader" aria-hidden="true">
+  <div class="ld-slats"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13"></i></div>
+  <div class="ld-center">
+    <img class="ld-logo" src="assets/logo.svg" alt="">
+    <div class="ld-name">TACHBONEST CLASSIC<em>Ventures</em></div>
+    <div class="ld-bar"><span></span></div>
+    <div class="ld-note">Opening the blinds…</div>
+  </div>
+</div>
+<div id="site-header"></div>
+
+<main>
+<section class="page-hero"><div class="wrap"><h1>Send us your food list</h1><p>Pick items from the shelf, or type in anything we have not listed. We confirm today's prices with you before we buy.</p></div></section>
+<section class="section" style="padding-top:30px"><div class="wrap split" style="grid-template-columns:1fr 390px">
+  <div class="card">
+    <h2>Items</h2><p class="sub">Use + to add an item to your list. Have your own written list or a photo of it? <a href="cart.html#own" style="color:var(--red);font-weight:700">Send it with the cart page</a>.</p>
+    <div class="tools"><input id="fq" type="search" placeholder="Search items…" aria-label="Search items"></div>
+    <div class="chips" id="fcats" style="margin-bottom:10px"></div>
+    <div id="fitems"></div>
+  </div>
+  <aside class="sticky">
+    <div class="card"><h2>My list <span id="lcount" style="color:var(--red)"></span></h2>
+      <div id="mylist" class="mylist"></div>
+      <div class="lbl" style="margin-top:8px">Not on the shelf? Add your own item</div>
+      <div class="custom" style="margin-top:6px"><input class="cell" id="cName" placeholder="Item name" aria-label="Item name"><input class="cell" id="cQty" type="number" min="1" value="1" aria-label="Quantity"><select class="cell" id="cUnit" aria-label="Unit"></select><button type="button" class="btn sm" id="cAdd">Add</button></div>
+      <div class="lbl" style="margin-top:16px">Have your list as a file or photo?</div>
+      <label class="drop" id="fdrop" for="fFiles" style="margin-top:6px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/><path d="M12 15V4m0 0L7.5 8.5M12 4l4.5 4.5"/></svg><b>Drop your list here, or tap to choose</b><span>Photo, PDF, Word, Excel or text. Up to 4 pictures and 3 files (400 KB each).</span>
+      </label>
+      <input type="file" id="fFiles" class="sr" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt">
+      <div class="thumbs" id="fThumbs"></div><div id="fFileList"></div>
+    </div>
+    <form class="card" id="fForm" novalidate>
+      <h2>Your details</h2>
+      <div class="field" data-f="name"><label for="fName">Full name</label><input id="fName" autocomplete="name"><span class="err">Enter your name.</span></div>
+      <div class="field" data-f="phone"><label for="fPhone">Phone / WhatsApp number</label><input id="fPhone" type="tel" autocomplete="tel"><span class="err">Enter a phone number we can reach.</span></div>
+      <div class="field"><label for="fAddr">Address (if you want it brought to you)</label><input id="fAddr" autocomplete="street-address"></div>
+      <div class="field"><label for="fHow">How will you collect it?</label><select id="fHow"><option>Bring it to my address</option><option>I will pick it up</option><option>Let us discuss</option></select></div>
+      <div class="field"><label for="fNotes">Notes (brands, budget, when you need it)</label><textarea id="fNotes"></textarea></div>
+      <div class="field" id="fErr" style="display:none"><span class="err" style="display:block" id="fErrTxt"></span></div>
+      <button class="btn red lg" style="width:100%" id="fSubmit" type="submit">Send my food list</button>
+    </form>
+  </aside>
+</div></section>
+<dialog id="done"><div class="dlg-in" style="text-align:center">
+  <div class="okmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h2>Food list received</h2>
+  <p style="color:var(--muted)">We will confirm today's prices with you before buying anything.</p>
+  <div class="refbox" id="refNo"></div>
+  <div class="acts" style="justify-content:center"><a class="btn wa" id="waBtn" target="_blank" rel="noopener">Send on WhatsApp too</a><a class="btn ghost" href="index.html">Back to home</a></div>
+</div></dialog>
+</main>
+<div id="site-footer"></div>
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script src="js/images.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/food.js"></script>
+</body>
+</html>
