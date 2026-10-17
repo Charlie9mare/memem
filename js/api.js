@@ -26,7 +26,7 @@
   window.Store = {
     mode: FB ? 'firebase' : 'local',
     async addOrder(o) {
-      if (FB) { await init(); const b = fb.db.batch(); b.set(fb.db.collection('orders').doc(o.id), o); b.set(fb.db.collection('tracking').doc(o.ref), { ref: o.ref, status: o.status, type: o.type, updatedAt: o.createdAt }); return b.commit(); }
+      if (FB) { await init(); const b = fb.db.batch(); b.set(fb.db.collection('orders').doc(o.id), o); b.set(fb.db.collection('tracking').doc(o.ref), { ref: o.ref, status: o.status, type: o.type, updatedAt: o.createdAt }); await b.commit(); return o; }
       const a = ls.get('tach_orders', []); a.unshift(o); ls.set('tach_orders', a); return o;
     },
     async listOrders() {
@@ -34,7 +34,7 @@
       return ls.get('tach_orders', []);
     },
     async updateOrder(id, patch, ref) {
-      if (FB) { await init(); const b = fb.db.batch(); b.update(fb.db.collection('orders').doc(id), patch); if (patch.status && ref) b.set(fb.db.collection('tracking').doc(ref), { status: patch.status, type: patch.type || 'unknown', updatedAt: Date.now() }); return b.commit(); }
+      if (FB) { await init(); const b = fb.db.batch(); b.update(fb.db.collection('orders').doc(id), patch); if (patch.status && ref) b.set(fb.db.collection('tracking').doc(ref), { status: patch.status, updatedAt: new Date().toISOString() }, { merge: true }); return b.commit(); }
       const a = ls.get('tach_orders', []); const i = a.findIndex(x => x.id === id);
       if (i > -1) { Object.assign(a[i], patch); ls.set('tach_orders', a); }
     },
